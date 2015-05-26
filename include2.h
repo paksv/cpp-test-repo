@@ -1,1 +1,0 @@
-#define _WIN_SERVER_VAR_ TRUE 
