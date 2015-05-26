@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "include2.h"
 #include <Windows.h>
 #include <stdio.h>
 
