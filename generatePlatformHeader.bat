@@ -7,6 +7,6 @@ ECHO %var%
 if "%var%" == "Server" ( 
 echo #define _WIN_SERVER_VAR_ TRUE > include2.h
 ) ELSE (
-echo #define _WIN_SERVER_VAR_ FALSE > include2.h
+echo #define _WIN_DESKTOP_VAR_ TRUE > include2.h
 )
 del /q osConfiguration.txt

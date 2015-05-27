@@ -5,6 +5,7 @@
 #include "include2.h"
 #include <Windows.h>
 #include <stdio.h>
+#include <assert.h>
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -22,14 +23,17 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		printf("Windows version: %d.%d %ls (build %d, platformId: %d)", osvi.dwMajorVersion, osvi.dwMinorVersion, osvi.szCSDVersion, osvi.dwBuildNumber, osvi.dwPlatformId);
 	} 	else if (_tcscmp(argv[1], _T("action")) == 0) {
-#if _WIN32_WINNT == _WIN32_WINNT_WS08 
+#ifdef _WIN_SERVER_VAR_
 		printf("This is a server platform product\n");
-#endif
-
-#if _WIN32_WINNT == _WIN32_WINNT_WIN7 
+#else 
+#ifdef  _WIN_DESKTOP_VAR
 		printf("This is a desktop product\n");
+#else
+		printf("No platform specified on compilation\n");
+		assert(0 == 1); //fail, if no var defined
+		return 2;
 #endif
-
+#endif
 	} 	else if (_tcscmp(argv[1], _T("test")) == 0) {
 	}
 
