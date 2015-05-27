@@ -4,15 +4,15 @@
 #include "stdafx.h"
 #include "include2.h"
 #include <Windows.h>
+#include <VersionHelpers.h>
 #include <stdio.h>
-#include <assert.h>
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	if (argc <= 1)
 	{
 		printf("A command is required");
-		return 10;
+		return 1;
 	} else if (_tcscmp(argv[1], _T("version")) == 0) {
 		OSVERSIONINFOEX osvi;
 		BOOL bIsWinXPOrLater;
@@ -25,16 +25,40 @@ int _tmain(int argc, _TCHAR* argv[])
 	} 	else if (_tcscmp(argv[1], _T("action")) == 0) {
 #ifdef _WIN_SERVER_VAR_
 		printf("This is a server platform product\n");
-#else 
-#ifdef  _WIN_DESKTOP_VAR
+#elif defined _WIN_DESKTOP_VAR_
 		printf("This is a desktop product\n");
 #else
 		printf("No platform specified on compilation\n");
-		assert(0 == 1); //fail, if no var defined
 		return 2;
 #endif
-#endif
 	} 	else if (_tcscmp(argv[1], _T("test")) == 0) {
+#ifdef _WIN_SERVER_VAR_
+		if (!IsWindowsServer())
+		{
+			printf("This binary is compiled for Windows Server\n");
+			return 2;
+		} else
+		{
+			printf("Test OK");
+			return 0;
+		}
+#elif defined  _WIN_DESKTOP_VAR_
+		if (IsWindowsServer())
+		{
+			printf("This binary is compiled for Windows Desktop\n");
+			return 2;
+		} else
+		{
+			printf("Test OK");
+			return 0;
+		}
+#else
+		printf("No platform specified on compilation\n");
+		return 2;
+#endif
+	} else
+	{
+		wsprintf(_T("Unknown command specified: %s"), argv[1]);
 	}
 
 
