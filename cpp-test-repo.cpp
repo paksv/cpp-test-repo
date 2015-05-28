@@ -35,7 +35,7 @@ int _tmain(int argc, _TCHAR* argv[])
 #ifdef _WIN_SERVER_VAR_
 		if (!IsWindowsServer())
 		{
-			printf("This binary is compiled for Windows Server\n");
+			printf("This binary is compiled for Windows Server!\n");
 			return 2;
 		} else
 		{
