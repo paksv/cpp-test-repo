@@ -12,7 +12,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	if (argc <= 1)
 	{
 		printf("A command is required!");
-		return 1;
+		return 2;
 	} else if (_tcscmp(argv[1], _T("version")) == 0) {
 		OSVERSIONINFOEX osvi;
 		BOOL bIsWinXPOrLater;
